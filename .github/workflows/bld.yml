@@ -22,5 +22,12 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
 
-      - name: Run tests
-        run: ./bld download compile test
+      - name: Run Tests
+        run: ./bld download compile detekt test
+
+      - name: Build Documentation
+        run: |
+          ./bld javadoc
+          ./bld dokka-html
+          ./bld dokka-gfm
+          ./bld dokka-jekyll
