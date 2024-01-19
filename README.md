@@ -1,4 +1,4 @@
-# [Kotlin](https://kotlinlang.org/) Example for [b<span style="color:orange">l</span>d](https://rife2.com/bld)
+# [Kotlin](https://kotlinlang.org/) Example Project for [b<span style="color:orange">l</span>d](https://rife2.com/bld)
 
 ## Compile the Example
 
