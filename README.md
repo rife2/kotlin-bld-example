@@ -1,5 +1,7 @@
 # [Kotlin](https://kotlinlang.org/) Example Project for [b<span style="color:orange">l</span>d](https://rife2.com/bld)
 
+Template for [bld](https://rife2.com/bld) projects using the [Kotlin](https://github.com/rife2/bld-kotlin) extension with support for Dokka and the [Detekt](https://github.com/rife2/bld-detekt) extension.
+
 ## Compile the Example
 
 ```console
