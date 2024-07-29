@@ -1,6 +1,9 @@
 name: bld-ci
 
-on: [push, pull_request, workflow_dispatch]
+on: [ push, pull_request, workflow_dispatch ]
+
+env:
+  KOTLIN_HOME: /usr/share/kotlinc
 
 jobs:
   build-gradle-project:
@@ -8,7 +11,8 @@ jobs:
 
     strategy:
       matrix:
-        java-version: [17, 21, 22]
+        java-version: [ 17, 21, 22 ]
+        kotlin-version: [ 1.19.24, 2.0.0 ]
 
     steps:
       - name: Checkout source repository
@@ -16,16 +20,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK ${{ matrix.java-version }}
+      - name: Set up JDK ${{ matrix.java-version }} with Kotlin ${{ matrix.kotlin-version }}
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: ${{ matrix.java-version }}
 
-      - name: Run tests
-        run: ./bld download compile detekt test
+      - name: Download dependencies
+        run: ./bld download
 
-      - name: Build documentation
+      - name: Compile source
+        run: ./bld compile
+
+      - name: Check source with Detekt
+        run: ./bld detekt
+
+      - name: Run tests
+        run: ./bld test
+
+      - name: Generate documentation with Dokka
         run: |
           ./bld javadoc
           ./bld dokka-html

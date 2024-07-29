@@ -1,6 +1,6 @@
 # [Kotlin](https://kotlinlang.org/) Example Project for [b<span style="color:orange">l</span>d](https://rife2.com/bld)
 
-Template for [bld](https://rife2.com/bld) projects using the [Kotlin extension](https://github.com/rife2/bld-kotlin) with built-in support for Dokka and the [Detekt extension](https://github.com/rife2/bld-detekt).
+Template for [bld](https://rife2.com/bld) projects using the [Kotlin extension](https://github.com/rife2/bld-kotlin) with built-in support for the [Dokka](https://github.com/rife2/bld-dokka) and [Detekt](https://github.com/rife2/bld-detekt) extensions.
 
 ## Compile the Example
 
@@ -34,3 +34,7 @@ Template for [bld](https://rife2.com/bld) projects using the [Kotlin extension](
 ./bld dokka-gfm
 ./bld dokka-jekyll
 ```
+
+## Requirements
+
+- A Kotlin compiler must be [installed](https://kotlinlang.org/docs/command-line.html#install-the-compiler).
