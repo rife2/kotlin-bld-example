@@ -42,14 +42,14 @@ commands:
 jobs:
   bld_jdk17:
     docker:
-      - image: cimg/openjdk:17
+      - image: cimg/openjdk:17.0
     steps:
       - build_and_test:
           kotlin: 1.9.24
 
   bld_jdk21:
     docker:
-      - image: cimg/openjdk:21
+      - image: cimg/openjdk:21.0
     steps:
       - build_and_test:
           kotlin: 2.0.0
