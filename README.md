@@ -37,4 +37,4 @@ Template for [bld](https://rife2.com/bld) projects using the [Kotlin extension](
 
 ## Requirements
 
-- A Kotlin compiler must be [installed](https://kotlinlang.org/docs/command-line.html#install-the-compiler).
+- A Kotlin compiler must be [installed](https://github.com/rife2/bld-kotlin?tab=readme-ov-file#kotlin-compiler-requirement).
