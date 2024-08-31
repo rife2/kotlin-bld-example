@@ -29,6 +29,12 @@ Template for [bld](https://rife2.com/bld) projects using the [Kotlin extension](
 ## Build the documentation with [Dokka](https://github.com/Kotlin/dokka)
 
 ```console
+./bld docs
+```
+
+or any of:
+
+```console
 ./bld javadoc
 ./bld dokka-html
 ./bld dokka-gfm
