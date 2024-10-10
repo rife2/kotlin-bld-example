@@ -10,6 +10,7 @@
     <pattern value="com.example.ExampleBuild" method="detektBaseline" />
     <pattern value="com.example.ExampleBuild" method="detektMain" />
     <pattern value="com.example.ExampleBuild" method="detektTest" />
+    <pattern value="com.example.ExampleBuild" method="docs" />
   </component>
   <component name="PDMPlugin">
     <option name="customRuleSets">
