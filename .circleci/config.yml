@@ -40,7 +40,7 @@ commands:
           path: << parameters.reports-dir >>
 
 jobs:
-  bld_jdk21:
+  bld:
     docker:
       - image: cimg/openjdk:23.0
     steps:
@@ -50,4 +50,4 @@ jobs:
 workflows:
   bld:
     jobs:
-      - bld_jdk23
+      - bld
