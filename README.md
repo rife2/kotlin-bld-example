@@ -2,6 +2,8 @@
 
 Template for [bld](https://rife2.com/bld) projects using the [Kotlin extension](https://github.com/rife2/bld-kotlin) with built-in support for the [Dokka](https://github.com/rife2/bld-dokka) and [Detekt](https://github.com/rife2/bld-detekt) extensions.
 
+Manual configuration steps for [Kotlin Support](https://github.com/rife2/bld/wiki/Kotlin-Support#manual-steps) are also available.
+
 ## Compile the Example
 
 ```console
