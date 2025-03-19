@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        java-version: [17, 21, 23]
+        java-version: [17, 21, 24]
         kotlin-version: [1.9.25, 2.1.10]
 
     steps:
@@ -23,7 +23,7 @@ jobs:
       - name: Set up JDK ${{ matrix.java-version }} with Kotlin ${{ matrix.kotlin-version }}
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
+          distribution: "zulu"
           java-version: ${{ matrix.java-version }}
 
       - name: Download dependencies
