@@ -7,6 +7,7 @@ import rife.bld.extension.DetektOperation;
 import rife.bld.extension.DokkaOperation;
 import rife.bld.extension.dokka.LoggingLevel;
 import rife.bld.extension.dokka.OutputFormat;
+import rife.bld.extension.kotlin.CompileOptions;
 import rife.bld.operations.exceptions.ExitStatusException;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class ExampleBuild extends Project {
         autoDownloadPurge = true;
         repositories = List.of(MAVEN_LOCAL, MAVEN_CENTRAL, RIFE2_RELEASES);
 
-        final var kotlin = version(2, 1, 10);
+        final var kotlin = version(2, 1, 20);
         scope(compile)
                 .include(dependency("org.jetbrains.kotlin", "kotlin-stdlib", kotlin));
         scope(test)
@@ -60,16 +61,15 @@ public class ExampleBuild extends Project {
     @BuildCommand(summary = "Compiles the Kotlin project")
     @Override
     public void compile() throws Exception {
+        // Avoid warnings in JDK 24
+        final var options = new CompileOptions().jvmOptions("--enable-native-access=ALL-UNNAMED");
         // The source code located in src/main/kotlin and src/test/kotlin will be compiled
         new CompileKotlinOperation()
                 .fromProject(this)
+                .compileOptions(options)
 //                .kotlinHome("path/to/kotlin")
 //                .kotlinc("path/to/kotlinc")
                 .execute();
-
-//        var op = new CompileKotlinOperation().fromProject(this);
-//        op.compileOptions().verbose(true);
-//        op.execute();
     }
 
     @BuildCommand(summary = "Checks source with Detekt")
