@@ -61,14 +61,12 @@ public class ExampleBuild extends Project {
     @BuildCommand(summary = "Compiles the Kotlin project")
     @Override
     public void compile() throws Exception {
-        // Avoid warnings in JDK 24
-        final var options = new CompileOptions().jvmOptions("--enable-native-access=ALL-UNNAMED");
         // The source code located in src/main/kotlin and src/test/kotlin will be compiled
         new CompileKotlinOperation()
                 .fromProject(this)
-                .compileOptions(options)
 //                .kotlinHome("path/to/kotlin")
 //                .kotlinc("path/to/kotlinc")
+                .compileOptions(new CompileOptions().verbose(true))
                 .execute();
     }
 
