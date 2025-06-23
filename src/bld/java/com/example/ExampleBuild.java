@@ -7,7 +7,6 @@ import rife.bld.extension.DetektOperation;
 import rife.bld.extension.DokkaOperation;
 import rife.bld.extension.dokka.LoggingLevel;
 import rife.bld.extension.dokka.OutputFormat;
-import rife.bld.extension.kotlin.CompileOptions;
 import rife.bld.operations.exceptions.ExitStatusException;
 
 import java.io.File;
@@ -27,18 +26,20 @@ public class ExampleBuild extends Project {
         version = version(0, 1, 0);
 
         javaRelease = 17;
-        downloadSources = true;
+
         autoDownloadPurge = true;
+        downloadSources = true;
+
         repositories = List.of(MAVEN_LOCAL, MAVEN_CENTRAL, RIFE2_RELEASES);
 
-        final var kotlin = version(2, 1, 20);
+        final var kotlin = version(2, 2, 0);
         scope(compile)
                 .include(dependency("org.jetbrains.kotlin", "kotlin-stdlib", kotlin));
         scope(test)
                 .include(dependency("org.jetbrains.kotlin", "kotlin-test-junit5", kotlin))
-                .include(dependency("org.junit.jupiter", "junit-jupiter", version(5, 12, 1)))
-                .include(dependency("org.junit.platform", "junit-platform-console-standalone", version(1, 12, 1)))
-                .include(dependency("org.junit.platform", "junit-platform-launcher", version(1, 12, 1)));
+                .include(dependency("org.junit.jupiter", "junit-jupiter", version(5, 13, 1)))
+                .include(dependency("org.junit.platform", "junit-platform-console-standalone", version(1, 13, 1)))
+                .include(dependency("org.junit.platform", "junit-platform-launcher", version(1, 13, 1)));
 
         // Include the Kotlin source directory when creating or publishing sources Java Archives
         jarSourcesOperation().sourceDirectories(new File(srcMainDirectory(), "kotlin"));
@@ -62,12 +63,11 @@ public class ExampleBuild extends Project {
     @Override
     public void compile() throws Exception {
         // The source code located in src/main/kotlin and src/test/kotlin will be compiled
-        new CompileKotlinOperation()
-                .fromProject(this)
-//                .kotlinHome("path/to/kotlin")
-//                .kotlinc("path/to/kotlinc")
-                .compileOptions(new CompileOptions().verbose(true))
-                .execute();
+        var op = new CompileKotlinOperation().fromProject(this);
+//        op.kotlinHome("path/to/kotlin");
+//        op.kotlinc("path/to/kotlinc");
+        op.compileOptions().verbose(true);
+        op.execute();
     }
 
     @BuildCommand(summary = "Checks source with Detekt")
