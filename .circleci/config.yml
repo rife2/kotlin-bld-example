@@ -42,10 +42,10 @@ commands:
 jobs:
   bld:
     docker:
-      - image: cimg/openjdk:23.0
+      - image: cimg/openjdk:17.0
     steps:
       - build_and_test:
-          kotlin: 2.1.10
+          kotlin: 2.2.20
 
 workflows:
   bld:
