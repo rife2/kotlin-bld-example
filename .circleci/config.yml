@@ -28,7 +28,7 @@ commands:
           command: ./bld detekt
       - run:
           name: Run tests
-          command: ./bld test -reports-dir=<< parameters.reports-dir >>
+          command: ./bld test --reports-dir=<< parameters.reports-dir >>
       - run:
           name: Generate documentation with Dokka
           command: |
