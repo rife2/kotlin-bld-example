@@ -43,6 +43,12 @@ or any of:
 ./bld dokka-jekyll
 ```
 
+# Explore
+
+- [View Build File](https://github.com/rife2/kotlin-bld-example/blob/main/src/bld/java/com/example/ExampleBuild.java)
+- [View Wrapper Properties](https://github.com/rife2/kotlin-bld-example/blob/main/lib/bld/bld-wrapper.properties)
+
+
 ## Requirements
 
 - A Kotlin compiler must be [installed](https://github.com/rife2/bld-kotlin?tab=readme-ov-file#kotlin-compiler-requirement).
