@@ -33,7 +33,7 @@ public class ExampleBuild extends Project {
         repositories = List.of(MAVEN_LOCAL, MAVEN_CENTRAL, RIFE2_RELEASES);
 
         final var kotlin = version(2, 2, 20);
-        final var junit = version(6, 0, 0);
+        final var junit = version(6, 0, 1);
         scope(compile)
                 .include(dependency("org.jetbrains.kotlin", "kotlin-stdlib", kotlin));
         scope(test)
