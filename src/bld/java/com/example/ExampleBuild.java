@@ -7,6 +7,7 @@ import rife.bld.extension.DetektOperation;
 import rife.bld.extension.DokkaOperation;
 import rife.bld.extension.dokka.LoggingLevel;
 import rife.bld.extension.dokka.OutputFormat;
+import rife.bld.extension.tools.IOTools;
 import rife.bld.operations.exceptions.ExitStatusException;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class ExampleBuild extends Project {
         autoDownloadPurge = true;
         downloadSources = true;
 
-        repositories = List.of(MAVEN_LOCAL, MAVEN_CENTRAL, RIFE2_RELEASES);
+        repositories = List.of(MAVEN_CENTRAL, CENTRAL_SNAPSHOTS, RIFE2_RELEASES);
 
         final var junit = version(6, 0, 1);
         final var kotlin = version(2, 3, 10);
@@ -121,7 +122,7 @@ public class ExampleBuild extends Project {
                 .fromProject(this)
                 .loggingLevel(LoggingLevel.INFO)
                 // Create build/dokka/gfm
-                .outputDir(Path.of(buildDirectory().getAbsolutePath(), "dokka", "gfm").toFile())
+                .outputDir(IOTools.resolveFile(buildDirectory(), "dokka", "gfm"))
                 .outputFormat(OutputFormat.MARKDOWN)
                 .execute();
     }
@@ -132,7 +133,7 @@ public class ExampleBuild extends Project {
                 .fromProject(this)
                 .loggingLevel(LoggingLevel.INFO)
                 // Create build/dokka/html
-                .outputDir(Path.of(buildDirectory().getAbsolutePath(), "dokka", "html").toFile())
+                .outputDir(IOTools.resolveFile(buildDirectory(), "dokka", "html"))
                 .outputFormat(OutputFormat.HTML)
                 .execute();
     }
@@ -143,7 +144,7 @@ public class ExampleBuild extends Project {
                 .fromProject(this)
                 .loggingLevel(LoggingLevel.INFO)
                 // Create build/dokka/jekyll
-                .outputDir(Path.of(buildDirectory().getAbsolutePath(), "dokka", "jekkyl").toFile())
+                .outputDir(IOTools.resolveFile(buildDirectory(), "dokka", "jekkyl"))
                 .outputFormat(OutputFormat.JEKYLL)
                 .execute();
     }
