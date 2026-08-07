@@ -22,7 +22,7 @@ commands:
           command: ./bld download
       - run:
           name: Compile source
-          command: ./bld compile
+          command: ./bld clean compile
       - run:
           name: Check source with Detekt
           command: ./bld detekt

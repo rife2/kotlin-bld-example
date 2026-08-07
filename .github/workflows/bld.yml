@@ -3,7 +3,7 @@ name: bld-ci
 on: [ push, pull_request, workflow_dispatch ]
 
 env:
-  KOTLIN_VERSION: "2.3.10"
+  KOTLIN_VERSION: "2.4.10"
 
 jobs:
   build-gradle-project:
@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout source repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -35,7 +35,7 @@ jobs:
         run: ./bld download
 
       - name: Compile source
-        run: ./bld compile
+        run: ./bld clean compile
 
       - name: Check source with Detekt
         run: ./bld detekt
