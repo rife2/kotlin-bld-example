@@ -12,7 +12,6 @@ import rife.bld.operations.exceptions.ExitStatusException;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
 import static rife.bld.dependencies.Repository.*;
@@ -20,6 +19,7 @@ import static rife.bld.dependencies.Scope.compile;
 import static rife.bld.dependencies.Scope.test;
 
 public class ExampleBuild extends Project {
+
     public ExampleBuild() {
         pkg = "com.example";
         name = "Example";
@@ -31,9 +31,9 @@ public class ExampleBuild extends Project {
         autoDownloadPurge = true;
         downloadSources = true;
 
-        repositories = List.of(MAVEN_CENTRAL, CENTRAL_SNAPSHOTS, RIFE2_RELEASES);
+        repositories = List.of(MAVEN_CENTRAL, CENTRAL_SNAPSHOTS, RIFE2_RELEASES, RIFE2_SNAPSHOTS);
 
-        final var kotlin = version(2, 3, 10);
+        final var kotlin = version(2, 4, 10);
         final var junit = version(6, 1, 3);
         scope(compile)
                 .include(dependency("org.jetbrains.kotlin", "kotlin-stdlib", kotlin));
@@ -45,6 +45,29 @@ public class ExampleBuild extends Project {
 
         // Include the Kotlin source directory when creating or publishing sources Java Archives
         jarSourcesOperation().sourceDirectories(new File(srcMainDirectory(), "kotlin"));
+    }
+
+    @BuildCommand(summary = "Compiles the Kotlin project")
+    @Override
+    public void compile() throws Exception {
+        // The source code located in src/main/kotlin and src/test/kotlin will be compiled
+        var op = new CompileKotlinOperation().fromProject(this);
+//        op.kotlinHome("path/to/kotlin");
+//        op.kotlinc("path/to/kotlinc");
+        op.compileOptions().verbose(true);
+        op.execute();
+    }
+
+    @BuildCommand(summary = "Generates Javadoc for the project")
+    @Override
+    public void javadoc() throws ExitStatusException, IOException, InterruptedException {
+        new DokkaOperation()
+                .fromProject(this)
+                .loggingLevel(LoggingLevel.INFO)
+                // Create build/javadoc
+                .outputDir(new File(buildDirectory(), "javadoc"))
+                .outputFormat(OutputFormat.JAVADOC)
+                .execute();
     }
 
     public static void main(String[] args) {
@@ -59,17 +82,6 @@ public class ExampleBuild extends Project {
 //        logger.setUseParentHandlers(false);
 
         new ExampleBuild().start(args);
-    }
-
-    @BuildCommand(summary = "Compiles the Kotlin project")
-    @Override
-    public void compile() throws Exception {
-        // The source code located in src/main/kotlin and src/test/kotlin will be compiled
-        var op = new CompileKotlinOperation().fromProject(this);
-//        op.kotlinHome("path/to/kotlin");
-//        op.kotlinc("path/to/kotlinc");
-        op.compileOptions().verbose(true);
-        op.execute();
     }
 
     @BuildCommand(summary = "Checks source with Detekt")
@@ -146,18 +158,6 @@ public class ExampleBuild extends Project {
                 // Create build/dokka/jekyll
                 .outputDir(IOTools.resolveFile(buildDirectory(), "dokka", "jekkyl"))
                 .outputFormat(OutputFormat.JEKYLL)
-                .execute();
-    }
-
-    @BuildCommand(summary = "Generates Javadoc for the project")
-    @Override
-    public void javadoc() throws ExitStatusException, IOException, InterruptedException {
-        new DokkaOperation()
-                .fromProject(this)
-                .loggingLevel(LoggingLevel.INFO)
-                // Create build/javadoc
-                .outputDir(new File(buildDirectory(), "javadoc"))
-                .outputFormat(OutputFormat.JAVADOC)
                 .execute();
     }
 }
