@@ -45,7 +45,7 @@ jobs:
       - image: cimg/openjdk:17.0
     steps:
       - build_and_test:
-          kotlin: 2.2.20
+          kotlin: 2.4.20
 
 workflows:
   bld:
