@@ -31,11 +31,16 @@ jobs:
         with:
           version: ${{ env.KOTLIN_VERSION }}
 
-      - name: Download dependencies
-        run: ./bld download
+      - name: Cache bld dependencies
+        id: cache-bld
+        uses: actions/cache@v6
+        with:
+          path: |
+            lib
+          key: ${{ runner.os }}-bld-java${{ matrix.java-version }}-lib
 
       - name: Compile source
-        run: ./bld clean compile
+        run: ./bld --auto-download-purge clean compile
 
       - name: Check source with Detekt
         run: ./bld detekt

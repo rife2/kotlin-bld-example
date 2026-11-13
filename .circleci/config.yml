@@ -17,12 +17,15 @@ commands:
       - sdkman/sdkman-install:
           candidate: kotlin
           version: << parameters.kotlin >>
+      - restore_cache:
+          key: bld-lib-{{ arch }}-{{ .Environment.CIRCLE_JOB }}
       - run:
-          name: Download dependencies
-          command: ./bld download
-      - run:
-          name: Compile source
-          command: ./bld clean compile
+          name: Compile with bld
+          command: ./bld --auto-download-purge clean compile
+      - save_cache:
+          key: bld-lib-{{ arch }}-{{ .Environment.CIRCLE_JOB }}
+          paths:
+            - lib
       - run:
           name: Check source with Detekt
           command: ./bld detekt
